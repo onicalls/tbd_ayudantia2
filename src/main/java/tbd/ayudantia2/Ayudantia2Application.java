@@ -1,13 +1,13 @@
-package tbd.ayudantia1;
+package tbd.ayudantia2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Ayudantia1Application {
+public class Ayudantia2Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Ayudantia1Application.class, args);
+        SpringApplication.run(Ayudantia2Application.class, args);
     }
 
 }
