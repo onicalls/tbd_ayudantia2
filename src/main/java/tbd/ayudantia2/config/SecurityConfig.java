@@ -25,17 +25,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(AbstractHttpConfigurer::disable)
-            .cors((cors) -> {})
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/establecimientos/**").hasAnyRole("ADMIN")
-                .requestMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated()
+            .csrf(AbstractHttpConfigurer::disable) // Deshabilita CSRF por ser una API
+            .cors((cors) -> {}) // Habilita CORS
+            .authorizeHttpRequests(authorize -> authorize // Configura las rutas que requieren autenticación
+                .requestMatchers("/establecimientos/").hasAnyRole("MOD") // Solo los ADMIN pueden acceder a /establecimientos/**
+                .requestMatchers("/establecimientos/**").hasAnyRole("ADMIN") // Solo los ADMIN pueden acceder a /establecimientos/**
+                .requestMatchers("/auth/**").permitAll() // Todos pueden acceder a /auth/**
+                .anyRequest().authenticated() // Todas las demás rutas requieren autenticación
             )
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .sessionManagement(session -> session // Configura la política de creación de sesiones
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No se crean sesiones
             )
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // Agrega el filtro de JWT antes del filtro de autenticación
         return http.build();
     }
 
@@ -47,5 +48,5 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
+    } // Configura el encriptador de contraseñas
 }

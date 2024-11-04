@@ -14,8 +14,16 @@ public class CorsConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
+        // Permite que el frontend se conecte a este backend.
+        // Como es una lista, puedes colocar varios orígenes permitidos.
+        // Ten en consideración que el puerto puede variar dependiendo del frontend.
         corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+
+        // Permite que se puedan hacer peticiones con los métodos que tengas dentro de la lista
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+
+        // Permite que se puedan enviar los headers que tengas dentro de la lista
+        // Por lo general se coloca "*", que significa que se pueden enviar todos los headers
         corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

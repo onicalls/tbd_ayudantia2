@@ -37,10 +37,11 @@ public class AuthController {
 
 @PostMapping("/login")
 public ResponseEntity<Void> login(@RequestBody LoginDto loginDto) {
-    try {
+    try { // Intentar autenticar al usuario
         UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
         Authentication authentication = authenticationManager.authenticate(login);
 
+        // Si la autenticación fue exitosa, crear un JWT y devolverlo en el header
         String jwt = this.jwtUtil.create(loginDto.getUsername());
 
         return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwt).build();
