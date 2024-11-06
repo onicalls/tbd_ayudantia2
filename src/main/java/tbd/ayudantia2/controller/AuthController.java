@@ -57,8 +57,6 @@ public ResponseEntity<Void> login(@RequestBody LoginDto loginDto) {
         newUser.setPassword(passwordEncoder.encode(registerDto.getPassword())); // Encriptar la contraseña
         newUser.setRol(registerDto.getRol());
         newUser.setEmail(registerDto.getEmail());
-        newUser.setLocked(true);
-        newUser.setDisabled(true);
 
         usuarioRepository.saveUsuario(newUser);
 
