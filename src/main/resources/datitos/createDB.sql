@@ -65,3 +65,16 @@ FROM establecimientos e
 alter table vista_establecimientos
     owner to postgres;
 
+CREATE TABLE IF NOT EXISTS public.users
+(
+    username character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(50) COLLATE pg_catalog."default",
+    rol character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT users_pkey PRIMARY KEY (username)
+)
+
+    TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.users
+    OWNER to postgres;
