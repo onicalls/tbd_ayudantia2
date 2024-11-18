@@ -22,15 +22,13 @@ public class UsuarioRepositoryImp implements UsuarioRepository {
 
 @Override
 public void saveUsuario(UsuarioEntity usuario) {
-    String sql = "INSERT INTO users (username, email, password, rol, locked, disabled) VALUES (:username, :email, :password, :rol, :locked, :disabled)";
+    String sql = "INSERT INTO users (username, email, password, rol) VALUES (:username, :email, :password, :rol)";
     try (org.sql2o.Connection con = sql2o.open()) {
         con.createQuery(sql)
             .addParameter("username", usuario.getUsername())
             .addParameter("email", usuario.getEmail())
             .addParameter("password", usuario.getPassword())
             .addParameter("rol", usuario.getRol())
-            .addParameter("locked", usuario.getLocked() ? 1 : 0)
-            .addParameter("disabled", usuario.getDisabled() ? 1 : 0)
             .executeUpdate();
         }
     }
